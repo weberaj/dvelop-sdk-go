@@ -123,7 +123,9 @@ func mapMethod(e *events.APIGatewayProxyRequest) string {
 }
 
 func mapURL(e *events.APIGatewayProxyRequest) *url.URL {
-	u := &url.URL{Path: e.Path}
+	// FIXME: Handle error?
+	u, _ := url.Parse(e.Path)
+
 	if e.QueryStringParameters != nil {
 		values := make(url.Values)
 		for key, value := range e.QueryStringParameters {
